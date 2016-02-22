@@ -3,7 +3,7 @@ from pytest import raises
 from binsearch import binary_search
 
 def test_nan():
-    with raises(TypeError):
+    with raises(ValueError):
         binary_search([1, 2, float('nan')], 3)
 
 def test_empty():

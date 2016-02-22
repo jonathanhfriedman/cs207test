@@ -1,3 +1,4 @@
+import numpy as np
 def binary_search(da_array: list, needle, left:int=0, right:int=-1) -> int:
     """
     An algorithm that operates in O(lg(n)) to search for an element
@@ -72,6 +73,8 @@ def binary_search(da_array: list, needle, left:int=0, right:int=-1) -> int:
     else:
         rangemax=right
     while True:
+        if (np.isnan(rangemin) or np.isnan(rangemax)):
+            raise ValueError("NaN values in array")
         "needle in da_array => needle in da_array[rangemin:rangemax]"   
         if rangemin > rangemax:
             index = -1
@@ -79,6 +82,9 @@ def binary_search(da_array: list, needle, left:int=0, right:int=-1) -> int:
         #If rangemin and rangemax are both very high we do not want overflow,
         #so get the midpoint like this:
         midpoint = rangemin + (rangemax - rangemin)//2
+        if (np.isnan(da_array[rangemin]) or np.isnan(da_array[rangemax]) or 
+            np.isnan(da_array[midpoint])):
+            raise ValueError("NaN values in array")
         if da_array[midpoint] > needle:#lower part
             rangemax = midpoint - 1
         elif da_array[midpoint] < needle:
